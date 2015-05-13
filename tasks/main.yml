@@ -1,2 +1,26 @@
 ---
-# tasks file for rpmdev
+- name: create build user
+  user: name={{ rpmdev_build_user }} state=present
+
+- name: create package user
+  user: name={{ rpmdev_package_user }} state=present
+
+- name: give package user acess to build home
+  acl: name="/home/{{ rpmdev_build_user }}" entity="{{ rpmdev_package_user }}" etype=user permissions="rx" state=present
+
+- name: install dev tools
+  yum: name="@Development Tools" state=present
+
+- name: install ruby
+  yum: name=ruby state=present
+
+- name: install rubygems
+  yum: name=rubygems state=present
+
+- name: install gem2rpm
+  yum: name=rubygem-gem2rpm state=present
+
+- name: install package cloud
+  gem: name=package_cloud state=present
+  sudo: yes
+  sudo_user: "{{ rpmdev_package_user }}"

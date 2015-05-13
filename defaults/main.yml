@@ -1,2 +1,3 @@
 ---
-# defaults file for rpmdev
+rpmdev_build_user: build
+rpmdev_package_user: package
