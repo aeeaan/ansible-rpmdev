@@ -24,3 +24,15 @@
   gem: name=package_cloud state=present
   sudo: yes
   sudo_user: "{{ rpmdev_package_user }}"
+
+- name: install dependencies for perl-Net-Amazon-EC2 build
+  yum: name={{ item }} state=present
+  with_items:
+    - perl-Moose
+    - perl-Module-Install
+    - perl-Digest-SHA
+    - perl-XML-Simple
+    - perl-Params-Validate
+    - perl-URI
+    - perl-LWP-Protocol-https
+    - perl-Test-Exception
